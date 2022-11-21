@@ -14,14 +14,14 @@ import Highlight from '@site/src/components/Highlight';
   <img src="/img/docs/getting-started/server/xiaoyi.png" width="18%"/>
 :::
 
-
-## 1.进入dtctl目录配置token
+## docker形式
+### 1.进入dtctl目录配置token
 
 ```bash
 cd DongTai/deploy/docker-compose/
 ```
 
-## 2.修改配置文件config-tutorial.ini
+### 2.修改配置文件config-tutorial.ini
 
 ```bash
 修改文件第39行替换为自己的token：
@@ -29,13 +29,42 @@ cd DongTai/deploy/docker-compose/
 token = 121212121212-1234-1234-1234-123444444444
 ```
 
-## 3.重新启动洞态iast
+### 3.重新启动洞态iast
 
 ```bash
 ./dtctl remove
 ./dtctl install
 
 ok ！
+```
+## Kubernetes
+### 1.进入dtctl目录配置token
+
+```bash
+cd DongTai/kubernetes/helm
+```
+
+### 2.修改配置文件values.yaml
+
+```bash
+修改文件第43行替换为自己的token：
+
+token = 121212121212-1234-1234-1234-123444444444
+```
+
+### 3.替换文件启动洞态iast
+
+```bash
+helm install project --create-namespace -n dongtai dongtai/dongtai-iast \
+--values /tmp/my-values.yaml
+```
+
+### 4.覆盖单值启动
+```bash
+helm install project --create-namespace -n dongtai dongtai/dongtai-iast \  
+--set storage.persistentVolumeClaim=pvc \  
+--set sca.sca_token=XXXXXXXX
+```
 ```
 
 
